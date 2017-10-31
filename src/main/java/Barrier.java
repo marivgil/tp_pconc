@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Barrier {
 
@@ -9,7 +10,7 @@ public class Barrier {
 
     public synchronized void barrera(PerfectWorker perfetWorker){
 
-        while(this.hilosABloquear.length != this.cantidadT )
+        while(this.hilosABloquear.size() != this.cantidadT )
             try {
                 perfetWorker.wait();
                 hilosABloquear.add(perfetWorker);
