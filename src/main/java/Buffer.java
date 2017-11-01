@@ -45,4 +45,8 @@ public class Buffer {
     private int siguiente(int actual){
         return (actual +1) %( this.capacidad);
     }
+
+    public int size(){
+        return this.inicio-this.fin;
+    }
 }
