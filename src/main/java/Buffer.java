@@ -29,7 +29,7 @@ public class Buffer {
 
     public synchronized BigInteger pop() {
         //Si el buffer esta vacio, espero hasta que haya algo por sacar
-        while (this.inicio==this.fin)
+        while (isEmpty())
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -48,5 +48,9 @@ public class Buffer {
 
     public int size(){
         return this.inicio-this.fin;
+    }
+
+    public boolean isEmpty() {
+        return this.inicio == this.fin;
     }
 }

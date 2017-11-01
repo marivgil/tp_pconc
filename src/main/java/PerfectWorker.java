@@ -10,22 +10,29 @@ public class PerfectWorker extends Thread{
         this.buffer=buffer;
     }
 
-    //FiXME: falta contemplar la opción de recibir nulos
     public void run(){
 
-            datoActual = this.buffer.pop();
+        while(!this.buffer.isEmpty()) {
 
-            for( BigInteger i = BigInteger.ONE;
-                 i.compareTo(datoActual) < 0 ;  //x.compareTo(y) < 0 si x < y
-                 i=i.add( BigInteger.ONE)){
+            this.datoActual = this.buffer.pop();
 
-                if(datoActual.mod(i).equals(BigInteger.ZERO)){
-                    suma = suma.add(i);
+            if (this.datoActual.compareTo(BigInteger.ZERO) >= 0) {
+
+                for (BigInteger i = BigInteger.ONE;
+                     i.compareTo(this.datoActual) < 0;  //x.compareTo(y) < 0 si x < y
+                     i = i.add(BigInteger.ONE)) {
+
+                    if (this.datoActual.mod(i).equals(BigInteger.ZERO)) {
+                        suma = suma.add(i);
+                    }
                 }
-            }
 
-            if(suma.equals(datoActual)){
-                System.out.println (datoActual.toString() + " es número perfecto");
+                if (suma.equals(this.datoActual)) {
+                    System.out.println(this.datoActual.toString() + " es número perfecto");
+                }
+            }else{
+                break; // si el numero es negativo, termina el thread automaticamente
             }
         }
+    }
 }
