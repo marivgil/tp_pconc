@@ -15,6 +15,7 @@ public class PerfectWorker extends Thread{
         while(!this.buffer.isEmpty()) {
 
             this.datoActual = this.buffer.pop();
+            suma = BigInteger.ZERO;
 
             if (this.datoActual.compareTo(BigInteger.ZERO) >= 0) {
 
@@ -34,5 +35,6 @@ public class PerfectWorker extends Thread{
                 break; // si el numero es negativo, termina el thread automaticamente
             }
         }
+
     }
 }

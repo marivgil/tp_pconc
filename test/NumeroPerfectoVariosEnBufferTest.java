@@ -10,11 +10,12 @@ public class NumeroPerfectoVariosEnBufferTest {
 
     @Before
     public void setUp(){
-        this.buffer3 = new Buffer(3);
+        this.buffer3 = new Buffer(5);
 
         this.buffer3.push(new BigInteger("27")); // no perfecto
         this.buffer3.push(new BigInteger("28")); // perfecto
         this.buffer3.push(new BigInteger("29")); // no perfecto
+        this.buffer3.push(new BigInteger("8128")); // perfecto
 
         this.t3 = new PerfectWorker(buffer3);
 
