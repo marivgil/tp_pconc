@@ -22,7 +22,7 @@ public class NumeroPerfectoVariosEnBufferTest {
         this.buffer3.push(new BigInteger("8128")); // perfecto
         this.t3 = new PerfectWorker(buffer3);
 
-        this.t3.run();
+        this.t3.start();
     }
 
     @Test
@@ -35,7 +35,7 @@ public class NumeroPerfectoVariosEnBufferTest {
         this.buffer3.push(new BigInteger("8128")); // perfecto
         this.t3 = new PerfectWorker(buffer3);
 
-        this.t3.run();
+        this.t3.start();
     }
 
 }
