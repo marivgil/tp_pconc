@@ -26,12 +26,12 @@ public class NumeroPerfectoTest{
 
     @Test
     public void esNumeroPerfecto(){
-        this.t1.start();
+        this.t1.run();
     }
 
     @Test
     public void noEsNumeroPerfecto(){
-        this.t2.start();
+        this.t2.run();
     }
 
 }
