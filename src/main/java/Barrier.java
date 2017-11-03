@@ -4,20 +4,40 @@ import java.util.List;
 public class Barrier {
 
     private int cantidadT;
-    private List<PerfectWorker> hilosABloquear = new ArrayList<PerfectWorker>();
+    private int totalDeHilosApasar;
+    private int totalDeHilosQueFaltanTerminar;
 
-    public Barrier(int cantidadThreads){ cantidadT=cantidadThreads; }
+    private int cantBloqueadas = 0;
+
+    public int getTotalDeHilosApasar(){
+        return totalDeHilosApasar;
+    }
+
+    public int getTotalDeHilosQueFaltanTerminar(){
+        return totalDeHilosQueFaltanTerminar;
+    }
+
+    public Barrier(int cantidadThreads,int totalDeHilosApasar){
+
+        this.cantidadT=cantidadThreads;
+        this.totalDeHilosApasar=totalDeHilosApasar;
+    }
+
+    public synchronized void terminoUnThread(){
+        totalDeHilosQueFaltanTerminar--;
+    }
 
     public synchronized void barrera(PerfectWorker perfetWorker){
 
-        while(this.hilosABloquear.size() != this.cantidadT )
-            try {
-                perfetWorker.wait();
-                hilosABloquear.add(perfetWorker);
-            } catch (InterruptedException e) {
-                e.getMessage();
-            }
-        notifyAll();
+        while((this.cantBloqueadas < this.cantidadT) && this.cantBloqueadas != totalDeHilosApasar) {
+
+            cantBloqueadas++;
+            perfetWorker.bloquear();
+        }
+
+        perfetWorker.despertarATodos();
+        totalDeHilosApasar-=cantBloqueadas;
+        cantBloqueadas=0;
 
     }
 }
