@@ -36,6 +36,7 @@ public class PerfectWorker extends Thread{
                 break; // si el numero es negativo, termina el thread automaticamente
             }
         }
+        System.out.println("Antes de terminar");
         this.miPool.esperar();
         System.out.println("termine!");
     }

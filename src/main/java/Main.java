@@ -6,7 +6,7 @@ public class Main {
 
     public static void main (String [ ] args) {
 
-        int cantidadThreads = 10;
+        int cantidadThreads = 3;
         List<BigInteger> listaBigInteger=new ArrayList<BigInteger>();
 
         for(int i=1;i<=(cantidadThreads-6);i++){
@@ -35,6 +35,7 @@ public class Main {
         }
 
         barrier.esperar();
+        System.out.println(" termine main");
 
         long fin = System.currentTimeMillis();
         double tiempo = (double) ((fin - inicio)/1000);
