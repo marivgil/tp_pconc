@@ -17,7 +17,7 @@ public class PerfectWorker extends Thread{
     }
 
 
-    public void bloquear(){
+    public synchronized void bloquear(){
 
         try {
             this.wait();
@@ -26,7 +26,7 @@ public class PerfectWorker extends Thread{
         }
     }
 
-    public void despertarATodos(){
+    public synchronized void despertarATodos(){
         this.notifyAll();
 
     }
@@ -44,8 +44,8 @@ public class PerfectWorker extends Thread{
 
         ///!this.buffer.isEmpty() te reemplo esto por que los hilos para mi siemrpe estan vivos es ma facil de monitorear cuantos hilos estan trabajado
         while(true){
-
             this.miBarrier().barrera(this);
+
             this.datoActual = this.buffer.pop();
             suma = BigInteger.ZERO;
 
@@ -67,7 +67,8 @@ public class PerfectWorker extends Thread{
                 // break; // si el numero es negativo, termina el thread automaticamente
             }
             miBarrier().terminoUnThread();
-            if (this.soyElUltimo()){buffer.notify(); }
+            if (this.soyElUltimo()){buffer.notify();
+                System.out.println("desbloquee el bufer wiiiiiii");}
         }
 
     }

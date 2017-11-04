@@ -19,8 +19,10 @@ public class ThreadPool {
 
 
     public void iniciar(Buffer buffer){
+
         this.barrier= new Barrier(4,buffer.size());
-        for(int i = 1; i < this.cantidadThreads; i++){
+        for(int i = 0; i < this.cantidadThreads; i++){
+
             PerfectWorker hilo = new PerfectWorker(buffer,this);
             hilosAguardar.add(hilo);
             hilo.start();

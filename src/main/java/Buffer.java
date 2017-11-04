@@ -14,6 +14,14 @@ public class Buffer {
         this.fin=0;
     }
 
+    public synchronized void bloquear(){
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public synchronized void push (BigInteger num) {
         //si el buffer esta lleno, espero hasta que haya lugar para agregar
         while( siguiente(this.inicio)==this.fin)

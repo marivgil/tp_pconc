@@ -1,10 +1,17 @@
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+import static java.lang.Thread.sleep;
 
-    public static void main(String [ ] args) {
+public class TpTest {
+
+    @Test
+    public void mainTest(){
 
         int cantidadThreads = 10;
         List<BigInteger> listaBigInteger=new ArrayList<BigInteger>();
@@ -29,15 +36,18 @@ public class Main {
         Buffer buffer = new Buffer(cantidadBuffer);
         ThreadPool threadPool = new ThreadPool(cantidadThreads);
 
-        threadPool.iniciar(buffer);
 
         for(BigInteger num : listaBigInteger){
             buffer.push(num);
         }
 
+        threadPool.iniciar(buffer);
+
         long fin = System.currentTimeMillis();
         double tiempo = (double) ((fin - inicio)/1000);
+
         System.out.println(tiempo +" segundos");
     }
+
 
 }

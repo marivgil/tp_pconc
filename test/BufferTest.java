@@ -7,6 +7,7 @@ import java.math.BigInteger;
 public class BufferTest {
 
     private Buffer buffer;
+    private ThreadPool threadPool;
     private BigInteger b1;
     private BigInteger b2;
     private BigInteger b3;
@@ -17,6 +18,9 @@ public class BufferTest {
         b1 = BigInteger.ONE;
         b2 = new BigInteger("2");
         b3 = new BigInteger("3");
+
+
+
     }
 
     @Test

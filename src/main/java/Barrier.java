@@ -27,14 +27,15 @@ public class Barrier {
         totalDeHilosQueFaltanTerminar--;
     }
 
-    public synchronized void barrera(PerfectWorker perfetWorker){
+    public void barrera(PerfectWorker perfetWorker){
 
-        while((this.cantBloqueadas < this.cantidadT) && this.cantBloqueadas != totalDeHilosApasar) {
 
+        while(this.cantBloqueadas < this.cantidadT){// && this.cantBloqueadas != totalDeHilosApasar) {
+            System.out.println("Me bloquee en barrier");
             cantBloqueadas++;
             perfetWorker.bloquear();
         }
-
+        System.out.println("Me desbloquee de barrier");
         perfetWorker.despertarATodos();
         totalDeHilosApasar-=cantBloqueadas;
         cantBloqueadas=0;

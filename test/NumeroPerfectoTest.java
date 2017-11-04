@@ -7,6 +7,7 @@ public class NumeroPerfectoTest{
 
     private Buffer buffer1;
     private Buffer buffer2;
+    private ThreadPool threadPool;
 
     private PerfectWorker t1;
     private PerfectWorker t2;
@@ -19,8 +20,8 @@ public class NumeroPerfectoTest{
         this.buffer1.push(new BigInteger("6"));
         this.buffer2.push(new BigInteger("1"));
 
-        this.t1 = new PerfectWorker(buffer1);
-        this.t2 = new PerfectWorker(buffer2);
+        this.t1 = new PerfectWorker(buffer1,threadPool);
+        this.t2 = new PerfectWorker(buffer2,threadPool);
 
     }
 

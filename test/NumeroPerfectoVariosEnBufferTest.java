@@ -7,6 +7,7 @@ public class NumeroPerfectoVariosEnBufferTest {
 
     private Buffer buffer3;
     private PerfectWorker t3;
+    private ThreadPool threadPool;
 
     @Before
     public void setUp(){
@@ -20,7 +21,7 @@ public class NumeroPerfectoVariosEnBufferTest {
         this.buffer3.push(new BigInteger("28")); // perfecto
         this.buffer3.push(new BigInteger("29")); // no perfecto
         this.buffer3.push(new BigInteger("8128")); // perfecto
-        this.t3 = new PerfectWorker(buffer3);
+        this.t3 = new PerfectWorker(buffer3, threadPool);
 
         this.t3.start();
     }
@@ -33,7 +34,7 @@ public class NumeroPerfectoVariosEnBufferTest {
         this.buffer3.push(new BigInteger("28").negate()); // perfecto
         this.buffer3.push(new BigInteger("29")); // no perfecto
         this.buffer3.push(new BigInteger("8128")); // perfecto
-        this.t3 = new PerfectWorker(buffer3);
+        this.t3 = new PerfectWorker(buffer3,  threadPool);
 
         this.t3.start();
     }
