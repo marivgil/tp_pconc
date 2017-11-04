@@ -13,14 +13,12 @@ public class Main {
             listaBigInteger.add(new BigInteger(""+i+""));
         }
 
-        //listaBigInteger.add(new BigInteger("6"));
-        //listaBigInteger.add(new BigInteger("28"));
         listaBigInteger.add(new BigInteger("496"));
         listaBigInteger.add(new BigInteger("8128"));
         listaBigInteger.add(new BigInteger("33550336"));
-        listaBigInteger.add(new BigInteger("8589869056"));
-        listaBigInteger.add(new BigInteger("137438691328"));
-        listaBigInteger.add(new BigInteger("2305843008139952128"));
+        //listaBigInteger.add(new BigInteger("8589869056"));
+        //listaBigInteger.add(new BigInteger("137438691328"));
+        //listaBigInteger.add(new BigInteger("2305843008139952128"));
 
 
         long inicio = System.currentTimeMillis();
@@ -29,11 +27,14 @@ public class Main {
         Buffer buffer = new Buffer(cantidadBuffer);
         ThreadPool threadPool = new ThreadPool(cantidadThreads);
 
-        threadPool.iniciar(buffer);
+        Barrier barrier= new Barrier(cantidadThreads);
+        threadPool.iniciar(buffer, barrier);
 
         for(BigInteger num : listaBigInteger){
             buffer.push(num);
         }
+
+        barrier.esperar();
 
         long fin = System.currentTimeMillis();
         double tiempo = (double) ((fin - inicio)/1000);

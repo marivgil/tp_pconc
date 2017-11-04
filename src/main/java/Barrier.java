@@ -1,43 +1,28 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class Barrier {
 
     private int cantidadT;
-    private int totalDeHilosApasar;
-    private int totalDeHilosQueFaltanTerminar;
+    private int cantBloqueados;
 
-    private int cantBloqueadas = 0;
-
-    public int getTotalDeHilosApasar(){
-        return totalDeHilosApasar;
+    public Barrier(int cantidadThreads){
+        this.cantidadT=cantidadThreads; // se debe contar el MAIN como  un hilo
+        this.cantBloqueados=0;
     }
 
-    public int getTotalDeHilosQueFaltanTerminar(){
-        return totalDeHilosQueFaltanTerminar;
-    }
+    public synchronized void esperar(){
 
-    public Barrier(int cantidadThreads,int totalDeHilosApasar){
-
-        this.cantidadT=cantidadThreads;
-        this.totalDeHilosApasar=totalDeHilosApasar;
-    }
-
-    public synchronized void terminoUnThread(){
-        totalDeHilosQueFaltanTerminar--;
-    }
-
-    public synchronized void barrera(PerfectWorker perfetWorker){
-
-        while((this.cantBloqueadas < this.cantidadT) && this.cantBloqueadas != totalDeHilosApasar) {
-
-            cantBloqueadas++;
-            perfetWorker.bloquear();
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        perfetWorker.despertarATodos();
-        totalDeHilosApasar-=cantBloqueadas;
-        cantBloqueadas=0;
+        cantBloqueados++;
+
+        if (cantBloqueados==cantidadT){
+            notifyAll();
+        }
 
     }
+
 }

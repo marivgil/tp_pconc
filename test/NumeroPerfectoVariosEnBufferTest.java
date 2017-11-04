@@ -5,22 +5,24 @@ import java.math.BigInteger;
 
 public class NumeroPerfectoVariosEnBufferTest {
 
-    private Buffer buffer3;
+    private Buffer buffer;
     private PerfectWorker t3;
+    private Barrier barrier;
 
     @Before
     public void setUp(){
-        this.buffer3 = new Buffer(10);
+        this.buffer = new Buffer(10);
+        this.barrier= new Barrier(2 );
 
     }
 
     @Test
     public void bufferConNumerosPerfectosYNumerosNoPerfectos(){
-        this.buffer3.push(new BigInteger("27")); // no perfecto
-        this.buffer3.push(new BigInteger("28")); // perfecto
-        this.buffer3.push(new BigInteger("29")); // no perfecto
-        this.buffer3.push(new BigInteger("8128")); // perfecto
-        this.t3 = new PerfectWorker(buffer3);
+        this.buffer.push(new BigInteger("27")); // no perfecto
+        this.buffer.push(new BigInteger("28")); // perfecto
+        this.buffer.push(new BigInteger("29")); // no perfecto
+        this.buffer.push(new BigInteger("8128")); // perfecto
+        this.t3 = new PerfectWorker(buffer, barrier);
 
         this.t3.start();
     }
@@ -28,12 +30,12 @@ public class NumeroPerfectoVariosEnBufferTest {
     @Test
     //solo debería imprimir el 6
     public void bufferRecibeNumeroNegativo(){
-        this.buffer3.push(new BigInteger("6")); // perfecto
-        this.buffer3.push(new BigInteger("27")); // no perfecto
-        this.buffer3.push(new BigInteger("28").negate()); // perfecto
-        this.buffer3.push(new BigInteger("29")); // no perfecto
-        this.buffer3.push(new BigInteger("8128")); // perfecto
-        this.t3 = new PerfectWorker(buffer3);
+        this.buffer.push(new BigInteger("6")); // perfecto
+        this.buffer.push(new BigInteger("27")); // no perfecto
+        this.buffer.push(new BigInteger("28").negate()); // perfecto
+        this.buffer.push(new BigInteger("29")); // no perfecto
+        this.buffer.push(new BigInteger("8128")); // perfecto
+        this.t3 = new PerfectWorker(buffer, barrier);
 
         this.t3.start();
     }

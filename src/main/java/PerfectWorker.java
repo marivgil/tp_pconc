@@ -5,47 +5,17 @@ public class PerfectWorker extends Thread{
     private Buffer buffer;
     private BigInteger suma = BigInteger.ZERO;
     private BigInteger datoActual;
-    private ThreadPool miPool;
+    private Barrier miPool;
 
-    public PerfectWorker(Buffer buffer, ThreadPool miPool){
+    public PerfectWorker(Buffer buffer, Barrier miPool){
         this.buffer=buffer;
         this.miPool=miPool;
     }
 
-    public int tamanioBuffer(){
-        return buffer.size();
-    }
-
-
-    public void bloquear(){
-
-        try {
-            this.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void despertarATodos(){
-        this.notifyAll();
-
-    }
-
-    private Barrier miBarrier(){
-        return this.miPool.getBarrier();
-    }
-
-    private Boolean soyElUltimo(){
-
-        return miBarrier().getTotalDeHilosQueFaltanTerminar() == 0;
-    }
-
     public void run(){
 
-        ///!this.buffer.isEmpty() te reemplo esto por que los hilos para mi siemrpe estan vivos es ma facil de monitorear cuantos hilos estan trabajado
-        while(true){
+        while(!this.buffer.isEmpty()){
 
-            this.miBarrier().barrera(this);
             this.datoActual = this.buffer.pop();
             suma = BigInteger.ZERO;
 
@@ -63,12 +33,10 @@ public class PerfectWorker extends Thread{
                 }
 
             }else{
-                //si aca corto el while muere el hilo
-                // break; // si el numero es negativo, termina el thread automaticamente
+                break; // si el numero es negativo, termina el thread automaticamente
             }
-            miBarrier().terminoUnThread();
-            if (this.soyElUltimo()){buffer.notify(); }
         }
-
+        this.miPool.esperar();
+        System.out.println("termine!");
     }
 }
