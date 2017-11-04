@@ -14,7 +14,7 @@ public class PerfectWorker extends Thread{
 
     public void run(){
 
-        while(!this.buffer.isEmpty()){
+        while(true){
 
             this.datoActual = this.buffer.pop();
             suma = BigInteger.ZERO;

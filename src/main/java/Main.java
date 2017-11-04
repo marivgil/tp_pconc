@@ -6,7 +6,7 @@ public class Main {
 
     public static void main (String [ ] args) {
 
-        int cantidadThreads = 3;
+        int cantidadThreads = 10;
         List<BigInteger> listaBigInteger=new ArrayList<BigInteger>();
 
         for(int i=1;i<=(cantidadThreads-6);i++){
@@ -16,9 +16,12 @@ public class Main {
         listaBigInteger.add(new BigInteger("496"));
         listaBigInteger.add(new BigInteger("8128"));
         listaBigInteger.add(new BigInteger("33550336"));
-        //listaBigInteger.add(new BigInteger("8589869056"));
-        //listaBigInteger.add(new BigInteger("137438691328"));
-        //listaBigInteger.add(new BigInteger("2305843008139952128"));
+        listaBigInteger.add(new BigInteger("8589869056"));
+        listaBigInteger.add(new BigInteger("137438691328"));
+        listaBigInteger.add(new BigInteger("2305843008139952128"));
+        listaBigInteger.add(new BigInteger("1").negate());
+        listaBigInteger.add(new BigInteger("1").negate());
+        listaBigInteger.add(new BigInteger("1").negate());
 
 
         long inicio = System.currentTimeMillis();
