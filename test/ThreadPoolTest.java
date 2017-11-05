@@ -20,7 +20,7 @@ public class ThreadPoolTest {
 
     @Test
     public void lanzarDosThreads(){
-        this.threadPool.iniciar(this.buffer);
+        this.threadPool.iniciarPerfectWorkers(this.buffer);
     }
 
 }

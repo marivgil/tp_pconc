@@ -18,9 +18,9 @@ public class ThreadPool {
 
 
 
-    public void iniciar(Buffer buffer){
+    public void iniciarPerfectWorkers(Buffer buffer){
 
-        this.barrier= new Barrier(4,buffer.size());
+        this.barrier= new Barrier(4,buffer.getTotalnum());
         for(int i = 0; i < this.cantidadThreads; i++){
 
             PerfectWorker hilo = new PerfectWorker(buffer,this);
@@ -28,5 +28,9 @@ public class ThreadPool {
             hilo.start();
 
         }
+    }
+
+    public Boolean finalizo(){
+        return barrier.getTotalDeHilosQueFaltanTerminar()==0;
     }
 }

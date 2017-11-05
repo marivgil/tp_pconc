@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String [ ] args) {
+    public static void main(String [ ] args) throws InterruptedException {
 
         int cantidadThreads = 10;
         List<BigInteger> listaBigInteger=new ArrayList<BigInteger>();
@@ -29,11 +29,12 @@ public class Main {
         Buffer buffer = new Buffer(cantidadBuffer);
         ThreadPool threadPool = new ThreadPool(cantidadThreads);
 
-        threadPool.iniciar(buffer);
 
         for(BigInteger num : listaBigInteger){
             buffer.push(num);
         }
+
+        buffer.numerosPerfectos(cantidadThreads);
 
         long fin = System.currentTimeMillis();
         double tiempo = (double) ((fin - inicio)/1000);

@@ -35,9 +35,8 @@ public class PerfectWorker extends Thread{
         return this.miPool.getBarrier();
     }
 
-    private Boolean soyElUltimo(){
-
-        return miBarrier().getTotalDeHilosQueFaltanTerminar() == 0;
+    private boolean soyUltimoThread(){
+        return miBarrier().getTotalDeHilosQueFaltanTerminar()==0;
     }
 
     public void run(){
@@ -62,13 +61,14 @@ public class PerfectWorker extends Thread{
                     System.out.println(this.datoActual.toString() + " es número perfecto");
                 }
 
-            }else{
-                //si aca corto el while muere el hilo
-                // break; // si el numero es negativo, termina el thread automaticamente
             }
             miBarrier().terminoUnThread();
-            if (this.soyElUltimo()){buffer.notify();
-                System.out.println("desbloquee el bufer wiiiiiii");}
+            System.out.println(miBarrier().getTotalDeHilosQueFaltanTerminar());
+
+            if (soyUltimoThread()) {
+                buffer.desbloquear();
+                System.out.println("desbloquee el buffer");
+            }
         }
 
     }

@@ -9,11 +9,11 @@ public class Barrier {
 
     private int cantBloqueadas = 0;
 
-    public int getTotalDeHilosApasar(){
+    public synchronized int getTotalDeHilosApasar(){
         return totalDeHilosApasar;
     }
 
-    public int getTotalDeHilosQueFaltanTerminar(){
+    public synchronized int getTotalDeHilosQueFaltanTerminar(){
         return totalDeHilosQueFaltanTerminar;
     }
 
@@ -21,24 +21,35 @@ public class Barrier {
 
         this.cantidadT=cantidadThreads;
         this.totalDeHilosApasar=totalDeHilosApasar;
+        this.totalDeHilosQueFaltanTerminar=totalDeHilosApasar;
     }
 
     public synchronized void terminoUnThread(){
         totalDeHilosQueFaltanTerminar--;
     }
 
+    private synchronized int getCantBloqueadas(){
+        return cantBloqueadas;
+    }
+
+
+    private synchronized int getCantidadT(){
+        return cantidadT;
+    }
+
+
     public void barrera(PerfectWorker perfetWorker){
 
-
-        while(this.cantBloqueadas < this.cantidadT){// && this.cantBloqueadas != totalDeHilosApasar) {
+        while((this.getCantBloqueadas() < this.getCantidadT()) && (this.getCantBloqueadas() != this.getTotalDeHilosQueFaltanTerminar())) {
             System.out.println("Me bloquee en barrier");
             cantBloqueadas++;
             perfetWorker.bloquear();
         }
         System.out.println("Me desbloquee de barrier");
-        perfetWorker.despertarATodos();
-        totalDeHilosApasar-=cantBloqueadas;
+        totalDeHilosQueFaltanTerminar-=cantBloqueadas;
         cantBloqueadas=0;
+        perfetWorker.despertarATodos();
+
 
     }
 }

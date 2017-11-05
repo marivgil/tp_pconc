@@ -6,12 +6,14 @@ public class Buffer {
     private int inicio;
     private int fin;
     private int capacidad;
+    private int totalnum;
 
     public Buffer(int capacidad){
         this.capacidad=capacidad+1;
         this.colaNumerosEsperando = new BigInteger[this.capacidad];
         this.inicio=0;
         this.fin=0;
+        this.totalnum=0;
     }
 
     public synchronized void bloquear(){
@@ -22,8 +24,23 @@ public class Buffer {
         }
     }
 
+    public synchronized void numerosPerfectos(int cantDeThreadsDeseados) throws InterruptedException {
+        ThreadPool myPool= new ThreadPool(cantDeThreadsDeseados);
+        myPool.iniciarPerfectWorkers(this);
+
+        if(!myPool.finalizo()){
+            System.out.println("buffer bloqueado");
+            wait();
+        }
+    }
+
+    public synchronized void desbloquear(){
+        notify();
+    }
+
     public synchronized void push (BigInteger num) {
         //si el buffer esta lleno, espero hasta que haya lugar para agregar
+        this.totalnum ++;
         while( siguiente(this.inicio)==this.fin)
             try {
                 wait();
@@ -46,19 +63,22 @@ public class Buffer {
         //si no esta vacio, tomo el ultimo
         BigInteger result = this.colaNumerosEsperando[this.fin];
         this.fin = siguiente(this.fin);
-        notifyAll ();
+        totalnum --;
+        notifyAll();
         return result;
     }
 
-    private int siguiente(int actual){
+    private synchronized int siguiente(int actual){
         return (actual +1) %( this.capacidad);
     }
 
-    public int size(){
+    public synchronized int size(){
         return this.inicio-this.fin;
     }
 
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return this.inicio == this.fin;
     }
+
+    public synchronized int getTotalnum(){return totalnum;}
 }
