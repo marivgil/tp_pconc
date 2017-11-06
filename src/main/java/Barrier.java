@@ -5,7 +5,7 @@ public class Barrier {
     private int cantBloqueados;
 
     public Barrier(int cantidadThreads){
-        this.cantidadT=cantidadThreads; // se debe contar el MAIN como un hilo mas ??
+        this.cantidadT=cantidadThreads;
         this.cantBloqueados=0;
     }
 

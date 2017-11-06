@@ -16,6 +16,8 @@ public class Main {
         listaBigInteger.add(new BigInteger("496"));
         listaBigInteger.add(new BigInteger("8128"));
         listaBigInteger.add(new BigInteger("33550336"));
+        listaBigInteger.add(new BigInteger("6"));
+        listaBigInteger.add(new BigInteger("28"));
         //listaBigInteger.add(new BigInteger("8589869056"));
         //listaBigInteger.add(new BigInteger("137438691328"));
         //listaBigInteger.add(new BigInteger("2305843008139952128"));
